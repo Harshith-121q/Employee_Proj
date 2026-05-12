@@ -1,0 +1,19 @@
+POST http://localhost:3000/emp-api/employees
+Content-Type: application/json
+
+{
+    "name":"harsha",
+    "email":"ha@gmaik",
+    "mobile":"91000000",
+    "designation":"",
+    "CompanyName":"SpaceX"
+}
+
+###
+GET http://localhost:3000/emp-api/employees
+
+###
+GET   http://localhost:3000/emp-api/employees/ha@gmaik
+
+### 
+DELETE http://localhost:3000/emp-api/employees/69cb2ac14c63e8059d23184e
