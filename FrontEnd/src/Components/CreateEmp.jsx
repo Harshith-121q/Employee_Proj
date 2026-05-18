@@ -20,7 +20,7 @@ export default function CreateEmp() {
     try {
       setLoading(true);
       //make HTTP POST req
-      let res = await fetch("https://employee-proj-ten.vercel.app//emp-api/employees", {
+      let res = await fetch("https://employee-proj.onrender.com/emp-api/employees", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(newEmpObj),
