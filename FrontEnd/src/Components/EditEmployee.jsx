@@ -34,7 +34,7 @@ export default function EditEmployee() {
             setLoading(true)
             setError("")
             let res = await axios.put(
-                `http://localhost:3000/emp-api/employees/${state._id}`,
+                `https://employee-proj-ten.vercel.app//emp-api/employees/${state._id}`,
                 modifiedEmpObj
             )
 
