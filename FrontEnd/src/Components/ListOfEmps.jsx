@@ -21,7 +21,7 @@ export default function ListOfEmps() {
   }
 
   const deleteEmpById= async(empId)=>{
-      let res = await axios.delete(`http://localhost:3000/emp-api/employees/${empId}`)
+      let res = await axios.delete(`https://employee-proj-ten.vercel.app//emp-api/employees/${empId}`)
       if(res.status===200){
         // get latest data
         getEmps();
@@ -30,7 +30,7 @@ export default function ListOfEmps() {
   }
 
   async function getEmps() {
-      let res = await fetch("http://localhost:3000/emp-api/employees");
+      let res = await fetch("https://employee-proj-ten.vercel.app//emp-api/employees");
       if (res.status === 200) {
         let resObj = await res.json();
         setEmps(resObj.payload);
