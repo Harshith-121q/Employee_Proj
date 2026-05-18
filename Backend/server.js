@@ -1,48 +1,46 @@
-import exp from "express"
-import { connect } from "mongoose"
-import { EmpApi } from "./Api/EmployeeApi.js"
-import cors from 'cors'
-// import {config} from "dotenv"
+import exp from "express";
+import { connect } from "mongoose";
+import { EmpApi } from "./Api/EmployeeApi.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
-const app=exp()
+dotenv.config();
+
+const app = exp();
 
 // middleware
-app.use(cors({              // cors->cross origin resourse sharing 
-    origin:["http://localhost:5173"]
+app.use(cors({
+    origin: "*"
 }));
 
-app.use(exp.json())
-app.use("/emp-api",EmpApi)
-// config()
+app.use(exp.json());
+app.use("/emp-api", EmpApi);
+
 // connect to database
-
 async function connectDB() {
-        try{
-            await connect("mongodb://localhost:27017/EmployeeDB")
-            console.log("DB connection Successfuly ")
+    try {
+        await connect(process.env.MONGO_URI);
+        console.log("DB connection Successful");
 
-            // start server
-            app.listen(3000,()=>console.log("Server on port 3000.."))
+        const PORT = process.env.PORT || 3000;
+        app.listen(PORT, () => console.log(`Server on port ${PORT}`));
 
-        }
-        catch(err){
-            console.log(err)
-        }
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-connectDB()
+connectDB();
 
-// error handling middleware                // erorr=>(name,message,callstack)
-app.use((err,req,res,next)=>{
-    // validation error 
-    if(err.name == "ValidationError"){
-        return res.status(400).json({message:"error occured ",err})
-    }
-    // Cast Error
-    if(err.name == "CastError"){
-        return res.status(400).json({message:"error occured ",err})
+// error handling middleware
+app.use((err, req, res, next) => {
+    if (err.name == "ValidationError") {
+        return res.status(400).json({ message: "error occured", err });
     }
 
-    // server-side error
-    res.status(500).json({message:"error occured",err})
-})
+    if (err.name == "CastError") {
+        return res.status(400).json({ message: "error occured", err });
+    }
+
+    res.status(500).json({ message: "error occured", err });
+});
