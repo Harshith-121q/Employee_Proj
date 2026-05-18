@@ -21,7 +21,7 @@ export default function ListOfEmps() {
   }
 
   const deleteEmpById= async(empId)=>{
-      let res = await axios.delete("https://employee-proj.onrender.com/emp-api/employees/${empId}`)
+      let res = await axios.delete(`https://employee-proj.onrender.com/emp-api/employees/${empId}`)
       if(res.status===200){
         // get latest data
         getEmps();
